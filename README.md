@@ -1,6 +1,6 @@
-# RmxMovies
+# Roomex Movies
 
-RmxMovies is an app to manage your favourite movies.
+Roomex Movies is an app to manage your favourite movies.
 
 
 ## NX
