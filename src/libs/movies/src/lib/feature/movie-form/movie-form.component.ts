@@ -54,8 +54,6 @@ export class MovieFormComponent implements OnInit, OnDestroy {
 
   private setPostalCodeValidationsOnCountryChange() {
     this.countryInputSubscription = this.movieForm.get('country')?.valueChanges.subscribe(country => {
-      this.movieForm.get('post_code')?.reset();
-
       if (country === 'ireland') {
         this.movieForm
           .get('post_code')
