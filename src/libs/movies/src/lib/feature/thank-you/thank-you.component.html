@@ -17,11 +17,11 @@
 
       <p-card *ngIf="vm.favourite_movie">
         <ng-template pTemplate="header">
-          <div class="text-center pt-12" data-testid="thank-you-header">
+          <div class="text-center pt-12" data-testid="thank-you-movie-header">
             <h5 class="text-4xl">Favourite Movie</h5>
           </div>
         </ng-template>
-        <div class="flex flex-col gap-4" data-testid="thank-you-body">
+        <div class="flex flex-col gap-4" data-testid="thank-you-movie-body">
           <h5 *ngIf="vm.favourite_movie.Title">Title: {{vm.favourite_movie.Title}}</h5>
           <p *ngIf="vm.favourite_movie.Type">Type: {{vm.favourite_movie.Type}}</p>
           <p *ngIf="vm.favourite_movie.Year">Year: {{vm.favourite_movie.Year}}</p>
