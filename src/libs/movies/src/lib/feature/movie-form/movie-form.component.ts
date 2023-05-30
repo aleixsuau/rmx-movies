@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MoviesService } from '../../data-access/movies.service';
 import { Movie, MovieFormValue } from '../../typings';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rmx-movie-form',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieFormComponent implements OnInit, OnDestroy {
-  readonly vm$ = this.moviesService.vm$;
+  readonly vm$ = this.moviesService.formVM$;
   readonly movieForm = this.formBuilder.nonNullable.group(
     {
       name: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
@@ -27,6 +28,7 @@ export class MovieFormComponent implements OnInit, OnDestroy {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly moviesService: MoviesService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,8 @@ export class MovieFormComponent implements OnInit, OnDestroy {
     const formValue: MovieFormValue = form.getRawValue();
     
     if (form.valid) {
-      // TODO: Go to detail page
+      this.moviesService.setMovieFormState(formValue);
+      this.router.navigate(['thank-you']);
     }
   }
 

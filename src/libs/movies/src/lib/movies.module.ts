@@ -9,6 +9,7 @@ import { MovieFormComponent } from './feature/movie-form/movie-form.component';
 import { moviesRoutes } from './movies.routes';
 import { CardModule } from 'primeng/card';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ThankYouComponent } from './feature/thank-you/thank-you.component';
 
 @NgModule({
   imports: [
@@ -21,8 +22,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     DropdownModule,
     AutoCompleteModule,
   ],
-  declarations: [
-    MovieFormComponent,
-  ],
+  declarations: [MovieFormComponent, ThankYouComponent],
 })
-export class MoviesModule { }
+export class MoviesModule {}

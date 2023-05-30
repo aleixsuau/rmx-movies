@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { MovieFormComponent } from './feature/movie-form/movie-form.component';
+import { ThankYouComponent } from './feature/thank-you/thank-you.component';
 
 export const moviesRoutes: Route[] = [
   {
@@ -10,5 +11,9 @@ export const moviesRoutes: Route[] = [
   {
     path: 'enter',
     component: MovieFormComponent,
+  },
+  {
+    path: 'thank-you',
+    component: ThankYouComponent,
   },
 ];

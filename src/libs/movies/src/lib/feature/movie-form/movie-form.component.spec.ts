@@ -81,7 +81,7 @@ describe('MovieFormComponent', () => {
     ],
     providers: [
       mockProvider(MoviesService, {
-        vm$: of(defaultVM)
+        formVM$: of(defaultVM)
       }),
     ],
   });

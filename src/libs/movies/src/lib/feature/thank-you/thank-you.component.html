@@ -1,0 +1,38 @@
+
+<div class="h-screen flex items-center justify-center text-center">
+  <p-card 
+    class="block w-[18rem] lg:w-[25rem]"
+    *ngIf="vm$ | async as vm; else noMovieSoFar;"
+  >
+    <ng-template pTemplate="header">
+      <div class="text-center pt-12" data-testid="thank-you-header">
+        <h3 class="text-3xl">Thanks {{vm.name}} !!</h3>
+      </div>
+    </ng-template>
+    <div class="flex flex-col gap-4" data-testid="thank-you-body">
+      <p >Name: {{vm.name}}</p>
+      <p *ngIf="vm.username">Username: {{vm.username}}</p>
+      <p>Country: {{vm.country}}</p>
+      <p *ngIf="vm.post_code">Postal Code: {{vm.post_code}}</p>
+
+      <p-card *ngIf="vm.favourite_movie">
+        <ng-template pTemplate="header">
+          <div class="text-center pt-12" data-testid="thank-you-header">
+            <h5 class="text-4xl">Favourite Movie</h5>
+          </div>
+        </ng-template>
+        <div class="flex flex-col gap-4" data-testid="thank-you-body">
+          <h5 *ngIf="vm.favourite_movie.Title">Title: {{vm.favourite_movie.Title}}</h5>
+          <p *ngIf="vm.favourite_movie.Type">Type: {{vm.favourite_movie.Type}}</p>
+          <p *ngIf="vm.favourite_movie.Year">Year: {{vm.favourite_movie.Year}}</p>
+          <p *ngIf="vm.favourite_movie.imdbID">IMDB ID: {{vm.favourite_movie.imdbID}}</p>
+          <img [src]="vm.favourite_movie.Poster" *ngIf="vm.favourite_movie.Poster" class="w-full" />
+        </div>
+      </p-card>
+    </div>
+  </p-card>
+</div>
+
+<ng-template #noMovieSoFar>
+  <h1 class="text-3xl">No movie so far</h1>
+</ng-template>

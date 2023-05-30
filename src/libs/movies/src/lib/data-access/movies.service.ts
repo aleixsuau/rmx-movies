@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, filter, map, of, startWith, switchMap, tap } from 'rxjs';
-import { Movie, MoviesAPIResponse, MoviesVM, SelectOption } from '../typings';
+import { Movie, MovieFormValue, MoviesAPIResponse, MoviesVM, SelectOption } from '../typings';
 import { HttpParams } from "@angular/common/http";
 
 @Injectable({
@@ -23,7 +23,7 @@ export class MoviesService {
     title: 'Roomex Movies',
     description: 'Where the best movies live...',
     country_options: this.countryOptions,
-    movie_suggestions: [],    
+    movie_suggestions: [],
   };
   private readonly movieSuggestionsQuerySubject = new BehaviorSubject<string>('');
   private readonly movieSuggestionsQueryDebounce = 500;
@@ -35,11 +35,13 @@ export class MoviesService {
       switchMap(query => this.fetchMovieSuggestions(query)),
       startWith([]),
     );
+  private readonly movieFormStateSubject = new BehaviorSubject<MovieFormValue | undefined>(undefined);  
 
-  readonly vm$: Observable<MoviesVM> = combineLatest([
+  readonly formVM$: Observable<MoviesVM> = combineLatest([
     of(this.defaultVM),
     this.movieSuggestions$,
   ]).pipe(map(([defaultVM, movie_suggestions]) =>({ ...defaultVM, movie_suggestions })));
+  readonly thankYouVM$ = this.movieFormStateSubject.asObservable();
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -47,6 +49,10 @@ export class MoviesService {
 
   getMovieSuggestions(query: string): void {
     this.movieSuggestionsQuerySubject.next(query);
+  }
+
+  setMovieFormState(formValue: MovieFormValue) {
+    this.movieFormStateSubject.next(formValue);
   }
 
   private fetchMovieSuggestions(query: string): Observable<Movie[]> {
