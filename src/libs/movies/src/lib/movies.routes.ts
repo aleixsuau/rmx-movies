@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { MovieFormComponent } from './movie-form/movie-form.component';
+import { MovieFormComponent } from './feature/movie-form/movie-form.component';
 
 export const moviesRoutes: Route[] = [
   {

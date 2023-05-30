@@ -1,0 +1,150 @@
+<form 
+  [formGroup]="movieForm"
+  #ngForm="ngForm"
+  *ngIf="vm$ | async as vm"
+  (ngSubmit)="submitForm(movieForm)"
+  class="h-screen flex items-center justify-center"
+  data-testid="movie-form"
+>
+  <p-card class="block w-[30rem] lg:w-[45rem]">
+    <ng-template pTemplate="header">
+      <div class="text-center pt-12" data-testid="movie-form-header">
+        <h3 class="text-3xl">{{vm.title}}</h3>
+        <h5 class="text-lg italic">{{vm.description}}</h5>
+      </div>
+    </ng-template>
+    <div class="flex flex-col gap-4" data-testid="movie-form-body">      
+      <div class="field p-fluid" data-testid="movie-form-name">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          aria-label="name"
+          data-testid="movie-form-name-input"
+        />
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('name')?.hasError('required') && ngForm.submitted"
+          data-testid="movie-form-name-required-error"
+        >
+          Name is <strong>required</strong>
+        </small>
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('name')?.hasError('pattern') && !movieForm.get('name')?.hasError('required')"
+          data-testid="movie-form-name-pattern-error"
+        >
+          Name <strong>can not contain numbers</strong>
+        </small>
+      </div>
+      <div class="field p-fluid" data-testid="movie-form-username">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          pInputText
+          formControlName="username"
+          aria-label="username"
+          data-testid="movie-form-username-input"
+        />
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('username')?.hasError('email')"
+          data-testid="movie-form-username-email-error"
+        >
+          Username has to be an <strong>email</strong>
+        </small>
+      </div>
+      <div class="field p-fluid" data-testid="movie-form-country">
+        <label for="country">Country</label>
+        <p-dropdown
+          [options]="vm.country_options"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select a country"
+          formControlName="country"
+          aria-label="country"
+          data-testid="movie-form-country-input"
+        >
+        </p-dropdown>
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('country')?.hasError('required') && ngForm.submitted"
+          data-testid="movie-form-country-required-error"
+        >
+          Country is <strong>required</strong>
+        </small>
+      </div>
+      <div class="field p-fluid" data-testid="movie-form-post_code">
+        <label for="post_code">Post Code</label>
+        <input
+          id="post_code"
+          type="text"
+          pInputText
+          formControlName="post_code"
+          aria-label="post code"
+          data-testid="movie-form-post_code-input"
+        />        
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('post_code')?.hasError('minlength')"
+          data-testid="movie-form-post_code-minlength-error"
+        >
+          Post code <strong>min length is 6</strong> (Actual length is {{movieForm.get('post_code')?.getError('minlength')?.actualLength}})
+        </small>
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('post_code')?.hasError('maxlength')"
+          data-testid="movie-form-post_code-maxlength-error"
+        >
+          Post code <strong>max length is 10</strong> (Actual length is {{movieForm.get('post_code')?.getError('maxlength')?.actualLength}})
+        </small>
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('post_code')?.hasError('required')"
+          data-testid="movie-form-post_code-required-error"
+        >
+          Post code is <strong>required</strong>
+        </small>
+        <small
+          class="p-error mt-2"
+          *ngIf="movieForm.get('post_code')?.hasError('pattern')"
+          data-testid="movie-form-post_code-pattern-error"
+        >
+          Post code is not <strong>valid</strong>
+        </small>
+      </div>
+      <div class="field p-fluid" data-testid="movie-form-favourite_movie">
+        <label for="country">Favourite Movie</label>
+        <p-autoComplete
+          formControlName="favourite_movie"
+          [suggestions]="vm.movie_suggestions"
+          (completeMethod)="getMovieSuggestions($event.query)"
+          field="Title"
+          data-testid="movie-form-favourite_movie-input"
+        >
+          <ng-template let-movie pTemplate="item">
+            <div class="flex items-center gap-4">
+              <img [src]="movie.Poster" class="w-12 h-12 rounded-lg" />
+              <p>{{ movie.Title }} ({{ movie.Year }})</p>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-center pb-12" >
+        <button
+          pButton
+          label="Submit"
+          class="p-button-success"
+          type="submit"
+          data-testid="movie-form-submit-button"
+        >
+        </button>
+      </div>
+    </ng-template>
+  </p-card>
+</form>

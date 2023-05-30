@@ -5,8 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import { MovieFormComponent } from './movie-form/movie-form.component';
+import { MovieFormComponent } from './feature/movie-form/movie-form.component';
 import { moviesRoutes } from './movies.routes';
+import { CardModule } from 'primeng/card';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { moviesRoutes } from './movies.routes';
     ButtonModule,
     ReactiveFormsModule,
     InputTextModule,
+    CardModule,
     DropdownModule,
+    AutoCompleteModule,
   ],
   declarations: [
     MovieFormComponent,
